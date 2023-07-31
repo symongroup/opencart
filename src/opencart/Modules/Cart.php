@@ -1,10 +1,10 @@
 <?php
-namespace Vkolya\ocSDK\Modules;
+namespace symongroup\opencart\Modules;
 
-use Vkolya\ocSDK\Base;
+use symongroup\opencart\Base;
 
-use Vkolya\ocSDK\Exceptions\InvalidProductException;
-use Vkolya\ocSDK\Exceptions\InvalidDataException;
+use symongroup\opencart\Exceptions\InvalidProductException;
+use symongroup\opencart\Exceptions\InvalidDataException;
 
 class Cart extends Base {
     

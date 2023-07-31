@@ -1,6 +1,6 @@
 <?php
 
-namespace Vkolya\ocSDK;
+namespace symongroup\opencart;
 
 class CurlRequest {
     private $url;

@@ -1,6 +1,6 @@
 <?php
-namespace Vkolya\ocSDK\Modules;
-use Vkolya\ocSDK\Base;
+namespace symongroup\opencart\Modules;
+use symongroup\opencart\Base;
 class Voucher extends Base {
     public function apply($voucher) {
         if (empty($voucher)) throw new InvalidDataException("Voucher cannot be empty for Voucher->apply()");

@@ -1,6 +1,6 @@
 <?php
-namespace Vkolya\ocSDK;
-use Vkolya\ocSDK\OpenCart;
+namespace symongroup\opencart;
+use symongroup\opencart\OpenCart;
 class Base {
     public $dynamicRoute = array();
     protected $oc;

@@ -1,4 +1,4 @@
 <?php
-namespace Vkolya\ocSDK\Exceptions;
+namespace symongroup\opencart\Exceptions;
 class InvalidCredentialsException extends \Exception {}
 

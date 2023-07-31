@@ -1,3 +1,3 @@
 <?php
-namespace Vkolya\ocSDK\Exceptions;
+namespace symongroup\opencart\Exceptions;
 class InvalidProductException extends \Exception {}

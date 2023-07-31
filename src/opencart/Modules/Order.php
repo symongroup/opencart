@@ -1,8 +1,8 @@
 <?php
-namespace Vkolya\ocSDK\Modules;
-use Vkolya\ocSDK\Base;
+namespace symongroup\opencart\Modules;
+use symongroup\opencart\Base;
 
-use Vkolya\ocSDK\Exceptions\InvalidDataException;
+use symongroup\opencart\Exceptions\InvalidDataException;
 
 class Order extends Base {
     public function add($shipping_method = '',$payment_method = '', $comment = '', $affiliate_id = '', $order_status_id = '') {

@@ -1,7 +1,7 @@
 <?php
-namespace Vkolya\ocSDK\Modules;
+namespace symongroup\opencart\Modules;
 
-use Vkolya\ocSDK\Base;
+use symongroup\opencart\Base;
 class Reward extends Base {
     public function add($reward) {
         if (empty($reward)) throw new InvalidDataException("Reward cannot be empty for Reward->add()");

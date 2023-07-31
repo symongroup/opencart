@@ -1,19 +1,19 @@
 <?php
-namespace Vkolya\ocSDK;
+namespace symongroup\opencart;
 
 
-use Vkolya\ocSDK\CurlRequest;
-use Vkolya\ocSDK\Modules\Cart;
-use Vkolya\ocSDK\Modules\Order;
-use Vkolya\ocSDK\Modules\Payment;
-use Vkolya\ocSDK\Modules\Reward;
-use Vkolya\ocSDK\Modules\Shipping;
-use Vkolya\ocSDK\Modules\Voucher;
+use symongroup\opencart\CurlRequest;
+use symongroup\opencart\Modules\Cart;
+use symongroup\opencart\Modules\Order;
+use symongroup\opencart\Modules\Payment;
+use symongroup\opencart\Modules\Reward;
+use symongroup\opencart\Modules\Shipping;
+use symongroup\opencart\Modules\Voucher;
 
 
-use Vkolya\ocSDK\Exceptions\UnknownOpenCartVersionException;
-use Vkolya\ocSDK\Exceptions\InvalidCredentialsException;
-use Vkolya\ocSDK\Exceptions\InvalidDataException;
+use symongroup\opencart\Exceptions\UnknownOpenCartVersionException;
+use symongroup\opencart\Exceptions\InvalidCredentialsException;
+use symongroup\opencart\Exceptions\InvalidDataException;
 
 class OpenCart {
 
