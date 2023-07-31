@@ -1,0 +1,26 @@
+{
+  "name": "symongroup/opencart-sdk",
+  "description": "Open Cart API",
+  "type": "package",
+  "license": "MIT",
+  "keywords": [
+    "opencart",
+    "api",
+    "sdk"
+  ],
+  "authors": [
+    {
+      "name": "byron",
+      "email": "xiaobo.sun@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  
+  "autoload": {
+    "psr-4": {
+      "symongroup\\": "src/"
+    }
+  }
+}
