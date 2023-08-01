@@ -1,3 +1,6 @@
 <?php
+
 namespace symongroup\opencart\Exceptions;
-class InvalidProductException extends \Exception {}
+class InvalidProductException extends \Exception
+{
+}

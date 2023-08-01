@@ -1,15 +1,17 @@
 <?php
+
 namespace symongroup\opencart\Modules;
 
 use symongroup\opencart\Base;
-
-use symongroup\opencart\Exceptions\InvalidProductException;
 use symongroup\opencart\Exceptions\InvalidDataException;
+use symongroup\opencart\Exceptions\InvalidProductException;
 
-class Cart extends Base {
-    
-    
-    public function add($product, $quantity = 1, $option = array()) {
+class Cart extends Base
+{
+
+
+    public function add($product, $quantity = 1, $option = array())
+    {
         $postData = array();
         if (is_array($product)) {
             $postData['product'] = $product;
@@ -20,13 +22,15 @@ class Cart extends Base {
         } else {
             throw new InvalidProductException('Invalid product information');
         }
-        
+
         $this->curl->setUrl($this->oc->getUrl('cart/add'));
         $this->curl->setData($postData);
         $this->curl->makeRequest();
         return $this->curl->getResponse();
     }
-    public function edit($key, $quantity) {
+
+    public function edit($key, $quantity)
+    {
         if (empty($key) || empty($quantity)) throw new InvalidDataException('Key and quantity cannot be empty for Cart->edit()');
         $postData = array(
             'key' => $key,
@@ -37,7 +41,9 @@ class Cart extends Base {
         $this->curl->makeRequest();
         return $this->curl->getResponse();
     }
-    public function remove($key) {
+
+    public function remove($key)
+    {
         if (empty($key)) throw new InvalidDataException('Key cannot be empty for Cart->remove()');
         $postData = array(
             'key' => $key
@@ -47,7 +53,9 @@ class Cart extends Base {
         $this->curl->makeRequest();
         return $this->curl->getResponse();
     }
-    public function products() {
+
+    public function products()
+    {
         $this->curl->setUrl($this->oc->getUrl('cart/products'));
         $this->curl->makeRequest();
         return $this->curl->getResponse();

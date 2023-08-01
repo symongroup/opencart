@@ -1,8 +1,11 @@
 <?php
+
 namespace symongroup\opencart;
 
 
-use symongroup\opencart\CurlRequest;
+use symongroup\opencart\Exceptions\InvalidCredentialsException;
+use symongroup\opencart\Exceptions\InvalidDataException;
+use symongroup\opencart\Exceptions\UnknownOpenCartVersionException;
 use symongroup\opencart\Modules\Cart;
 use symongroup\opencart\Modules\Order;
 use symongroup\opencart\Modules\Payment;
@@ -11,17 +14,14 @@ use symongroup\opencart\Modules\Shipping;
 use symongroup\opencart\Modules\Voucher;
 
 
-use symongroup\opencart\Exceptions\UnknownOpenCartVersionException;
-use symongroup\opencart\Exceptions\InvalidCredentialsException;
-use symongroup\opencart\Exceptions\InvalidDataException;
-
-class OpenCart {
+class OpenCart
+{
 
     const API_VERSION_AUTO = 0;
     const API_VERSION_1 = 1;
     const API_VERSION_2 = 2;
     const API_VERSION_3 = 3;
-    
+
     private $url;
     public $apiVersion;
     public $curl;
@@ -31,15 +31,17 @@ class OpenCart {
     public $reward;
     public $shipping;
     public $voucher;
+
     /**
      * Initialize opencart session
      *
-     * @param  string   $site Address of opencart site
-     * @param  string   $sessionFile File name where stored session data of opencart
-     * @param  array    $restore_data array contains token and API version or empty array for first login
+     * @param string $site Address of opencart site
+     * @param string $sessionFile File name where stored session data of opencart
+     * @param array $restore_data array contains token and API version or empty array for first login
      */
-    public function __construct($site,$sessionFile = '', $restore_data = []) {
-       
+    public function __construct($site, $sessionFile = '', $restore_data = [])
+    {
+
         $this->url = (!preg_match('/^https?\:\/\//', $site) ? 'http://' : '') . rtrim($site, '/') . '/index.php?';
         $this->apiVersion = $restore_data['apiVersion'] ?? OpenCart::API_VERSION_AUTO;
         $this->token = $restore_data['token'] ?? '';
@@ -51,14 +53,16 @@ class OpenCart {
         $this->shipping = new Shipping($this);
         $this->voucher = new Voucher($this);
     }
-   
-    public function __get($name) {
+
+    public function __get($name)
+    {
         $voidProp = new Base($this);
         return $voidProp->{$name};
     }
 
-    public function getUrl($method) {
-        
+    public function getUrl($method)
+    {
+
         switch ($this->apiVersion) {
             case OpenCart::API_VERSION_AUTO:
                 return $this->url . 'api_token=' . $this->token . '&route=api/' . $method;
@@ -73,21 +77,23 @@ class OpenCart {
                 return $this->url . 'api_token=' . $this->token . '&route=api/' . $method;
                 break;
             default:
-                
+
                 throw new UnknownOpenCartVersionException("Unknown OpenCart Version");
                 break;
         }
     }
+
     /**
      * Login user thought API
      *
      * @return array|string  Token and API version or error message
-    */    
-    public function login() {
-        
+     */
+    public function login()
+    {
+
         $args = func_get_args();
         $argsCount = count($args);
-       
+
         $this->curl->setUrl($this->getUrl('login'));
         switch ($argsCount) {
             case 0:
@@ -117,9 +123,9 @@ class OpenCart {
         }
         $this->curl->makeRequest();
         $response = $this->curl->getResponse();
-        
+
         $output_data = [];
-        
+
         if (isset($response['success'])) {
             if (isset($response['cookie'])) {
                 $this->apiVersion = OpenCart::API_VERSION_1;
@@ -131,19 +137,20 @@ class OpenCart {
                 $this->apiVersion = OpenCart::API_VERSION_3;
                 $this->token = $response['api_token'];
             }
-            
+
             return $output_data = [
                 'apiVersion' => $this->apiVersion,
-                'token'      => $this->token
+                'token' => $this->token
             ];
-            
+
         } else if (isset($response['error'])) {
             return $response['error'];
         }
-     
+
     }
 
-    public function coupon($coupon) {
+    public function coupon($coupon)
+    {
         if (empty($coupon))
             throw new InvalidDataException('Coupon cannot be empty for OpenCart->coupon()');
         $postData = array(
@@ -155,16 +162,17 @@ class OpenCart {
         return $this->curl->getResponse();
     }
 
-    public function customer($customer_id = 0, $customer_group_id = 0, $firstname = '', $lastname = '', $email = '', $telephone = '', $fax = '', $extra = array()) {
+    public function customer($customer_id = 0, $customer_group_id = 0, $firstname = '', $lastname = '', $email = '', $telephone = '', $fax = '', $extra = array())
+    {
         $postData = array(
-            'customer_id' => $customer_id,
-            'customer_group_id' => $customer_group_id,
-            'firstname' => $firstname,
-            'lastname' => $lastname,
-            'email' => $email,
-            'telephone' => $telephone,
-            'fax' => $fax,
-                ) + $extra;
+                'customer_id' => $customer_id,
+                'customer_group_id' => $customer_group_id,
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'email' => $email,
+                'telephone' => $telephone,
+                'fax' => $fax,
+            ) + $extra;
 
         $this->curl->setUrl($this->getUrl('customer'));
         $this->curl->setData($postData);

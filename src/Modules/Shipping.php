@@ -1,8 +1,13 @@
 <?php
+
 namespace symongroup\opencart\Modules;
+
 use symongroup\opencart\Base;
-class Shipping extends Base {
-    public function address($firstname = '', $lastname = '', $company = '', $address_1 = '', $address_2 = '', $postcode = '', $city = '', $zone_id = '', $country_id = '') {
+
+class Shipping extends Base
+{
+    public function address($firstname = '', $lastname = '', $company = '', $address_1 = '', $address_2 = '', $postcode = '', $city = '', $zone_id = '', $country_id = '')
+    {
         $postData = array(
             'firstname' => $firstname,
             'lastname' => $lastname,
@@ -19,12 +24,16 @@ class Shipping extends Base {
         $this->curl->makeRequest();
         return $this->curl->getResponse();
     }
-    public function methods() {
+
+    public function methods()
+    {
         $this->curl->setUrl($this->oc->getUrl('shipping/methods'));
         $this->curl->makeRequest();
         return $this->curl->getResponse();
     }
-    public function method($shipping_method) {
+
+    public function method($shipping_method)
+    {
         if (empty($shipping_method)) throw new InvalidDataException("Shipping method cannot be empty for Shipping->method()");
         $postData = array(
             'shipping_method' => $shipping_method
